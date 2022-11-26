@@ -101,3 +101,48 @@ void QS_Particao(int Esq, int Dir, int *i, int *j, int *A){
     }
  } while (*i <= *j);
  }
+
+void Heapsort(int *A, int *n)
+{
+ int Esq, Dir;
+ int aux;
+ HS_Constroi(A, n); /* constroi o heap */
+ Esq = 1; 
+ Dir = *n;
+ while (Dir > 1)
+ { /* ordena o vetor */
+    aux = A[1];
+    A[1] = A[Dir];
+    A[Dir] = aux;
+    Dir--;
+    HS_Refaz(Esq, Dir, A);
+ }
+}
+
+void HS_Refaz(int Esq, int Dir, int *A)
+{
+ int j = Esq * 2;
+ int aux = A[Esq];
+ while (j <= Dir){ 
+    if ((j < Dir)&&(A[j] < A[j+1]))
+        j++; 
+    if (aux >= A[j])
+        break;
+    A[Esq] = A[j];
+    Esq = j;
+    j = Esq * 2 ;
+ }
+ A[Esq] = aux;
+}
+
+void HS_Constroi(int *A, int *n)
+{ 
+ int Esq;
+ Esq = *n / 2 + 1;
+ while (Esq > 1)
+ { 
+    Esq--;
+    HS_Refaz(Esq, *n, A);
+ }
+}
+
